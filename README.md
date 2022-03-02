@@ -1,24 +1,8 @@
-# Ruby on Rails PhotoSite Application and Deploying it on Amazon Web Services using Dcoker
+# Ruby on Rails PhotoSite Application and Deploying it on Amazon Web Services using Docker
 
-- [Introduction](https://github.com/Akash274/Project_R_AWS/wiki#section-1-introduction-and-purpose)
-- [Creating Ruby on Rails PhotoSite Application](https://github.com/Akash274/Project_R_AWS/wiki#steps-followed-to-create-ruby-on-rails-application)
-- [Running PhotoSite using Ruby Mine IDE](https://github.com/Akash274/Project_R_AWS/wiki#steps-followed-to-create-ruby-on-rails-application)
-- [Docker Container](https://github.com/Akash274/Project_R_AWS/wiki#docker-container)
-- [Docker Image](https://github.com/Akash274/Project_R_AWS/wiki#docker-image)
-- [Create Docker Image and Running locally using Docker Image](https://github.com/Akash274/Project_R_AWS/wiki#create-docker-image)
-- [AWS EC2 Instance creation](https://github.com/Akash274/Project_R_AWS/wiki#aws-ec2-instance-creation)
-- [AWS EC2 Deployment of PhotoSite app using Docker Image](https://github.com/Akash274/Project_R_AWS/wiki#aws-ec2-deployment-of-photosite-app-using-docker-image)
-- [AWS S3 Bucket](https://github.com/Akash274/Project_R_AWS/wiki#aws-s3-bucke)
-- [PhotoSite running on AWS EC2 Instance](https://github.com/Akash274/Project_R_AWS/wiki#aws-ec2-instance-running-photosite-access)
-- [PhotoSite Application Status](https://github.com/Akash274/Project_R_AWS/wiki#section-3-this-application-is-working-properly-end-to-end-no-open-issue-is-present)
-- [YouTube URL for Project Demo](https://github.com/Akash274/Project_R_AWS/wiki#section-4--youtube-url)
-- [Special Issue 1’s Solution - AWS EC2 instance's image creation](https://github.com/Akash274/Project_R_AWS/wiki#aws-ec2-instances-image-creation)
-- [Special Issue 2’s Solution - AWS EC2 instance's Elastic IPs](https://github.com/Akash274/Project_R_AWS/wiki#aws-ec2-instances-elastic-ips)
-- [PhotoSite Image Used Reference](https://github.com/Akash274/Project_R_AWS/wiki#photosite-images-taken-from---httpborgcsueastbayedugrewecs651projectr_aws_part1tipshtml)
+## Section 1 and 2
 
-## Section 1
-
-### 1. Introduction
+### Introduction
 This project demonstrates the work done using Ruby on Rails development and its deployment using Docker, DockerHub and Amazon Web Services using AWS S3 storage bucket and AWS EC2 instance creating and deploying application onit.
 This is a Photo-sharing application made using Ruby on Rails. 
 A user can view photos and comments by clicking on the name of a user.The application has a comment section that has its comments stored in an SQLite database. The images used for this application are stored in the S3 bucket. Docker image for this project is created and stored on Docker Hub. This application is deployed and runs on an AWS EC2 instance using a docker image from Docker Hub.
@@ -33,7 +17,7 @@ Github: https://github.com/Akash274/Project_R_AWS/
 
 Github Wiki: https://github.com/Akash274/Project_R_AWS/wiki
 
-### 2. Creating Ruby on Rails Photo-Sharing Application
+### Creating Ruby on Rails Photo-Sharing Application
 #### Steps to create a Ruby on Rails Application.
 * Create a new Ruby on Rails application project.
   New Project -> Rails -> application -> add Ruby SDK and Rails version. For database select sqlite3. Click Create
@@ -96,4 +80,88 @@ Application running on local host on docker
 ![screenshot image](screenshot15.png)
 ![screenshot image](screenshot16.png)
 ![screenshot image](screenshot17.png)
+
+### Amazon Web Services EC2 Compute
+We'll start creating an instance in AWS
+
+We have selected the first option
+![screenshot image](Picture1.png)
+Then We have chosen t2 micro.
+![screenshot image](Picture2.png)
+We have selected default storage, configurations, and tags
+We have configured the security group as follows
+1. Add rule where 
+2. Type is Custom TCP rule
+3. Port is 3000
+4. Source is anywhere
+![screenshot image](Picture3.png)
+Now we will setup a new key pair to access our server and store the private key somewhere safely on our local computer.
+![screenshot image](Picture4.png)
+Now we will allocate on elastic IP 
+And associate it to the server
+![screenshot image](Picture5.png)
+The Elastic IP associated to the server 
+![screenshot image](Picture6.png)
+### Create an S3 bucket on Amazon Web Services
+1. Search for S3 bucket
+2. Go to Create
+3. And enter the bucket’s name
+![screenshot image](Picture7.png)
+4. Uncheck the block all public access so that you could access your bucket from public IP
+![screenshot image](Picture8.png)
+5. And click submit
+Your bucket is created successfully
+![screenshot image](Picture9.png)
+6. Now upload photos to the bucket through add files option
+![screenshot image](Picture10.png)
+![screenshot image](Picture11.png)
+7. Now set up permissions for the photos uploaded in the bucket
+Go to the permissions tab -> Click edit
+![screenshot image](Picture12.png)
+8. Now setup the permissions as follows
+The type of policy will be S3 bucket policy
+Principal will be *
+Action will be Get Object and Put Object.
+![screenshot image](Picture13.png)
+9. Copy and paste the newly generated policy to the edit bucket policy tab
+And hit save changes.
+![screenshot image](Picture14.png)
+10. After that, we will connect putty and run the commands to deploy docker on putty
+
+Sudo yum update -y
+![screenshot image](Picture15.png)
+
+11. Then run 
+sudo yum install docker -y
+![screenshot image](Picture16.png)
+
+12. Then run 
+sudo service docker start
+![screenshot image](Picture17.png)
+
+13. Then run 
+sudo docker run -it -p 3000:3000 amhatre2/group5:project_r_aws_web
+![screenshot image](Picture18.png)
+######## Accessing the application deployed on Amazon AWS using public ip
+![screenshot image](Picture19.png)
+![screenshot image](Picture20.png)
+![screenshot image](Picture21.png)
+
+### SECTION 3) This application is working properly end to end. No open issue is present.
+
+### SECTION 4)  YouTube URL
+https://youtu.be/sZrrzpZJA9U
+
+
+### Section 5)
+what happens when an instance stops running?
+
+If an instance stops running, any data stored in the instance store volumes of the host computer or the RAM of the host computer is gone but the data on Amazon EBS Volumes will remain attached to the instance.
+
+
+### Section 6)
+what happens when you reboot an instance and what can you do?
+
+When you reboot an instance it retains its private IPv4 addresses and any IPv6 addresses when stopped and started. But public IPv4 address is released and a new one is assigned when you start your instance again. 
+The instance retains its associated Elastic IP addresses.  With EC2-Classic, an Elastic IP address is dissociated from your instance when you stop it. An Elastic IP address is a property of a network interface. You associate an Elastic IP address with an instance by updating the network interface attached to the instance.
 
