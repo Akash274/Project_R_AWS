@@ -11,7 +11,7 @@ The EC2 instance has an image copy saved so that when the EC2 instance is under 
 
 Youtube: https://youtu.be/sZrrzpZJA9U
 
-Application Link: http://18.213.207.246:3000/
+Application Link: http://52.205.126.107:3000/
 
 Github: https://github.com/Akash274/Project_R_AWS/
 
@@ -35,12 +35,12 @@ You will see files generated for the user, photo and comment. Add the columns yo
 * Update routes.rb file to serve user/index and photo/index/:id pages
 ##### Running Photo-Sharing Application locally using Ruby Mine IDE
 1. Run this project using Ruby Mine IDE. This will start server in listening mode.
-![screenshot image](screenshot1.png)
+![screenshot image](screenshot/screenshot1.PNG)
 2. Open "http://localhost:3000/user/index" PhotoSite URL in browser. This shows PhotoSite app's HOME page.
 Click on index #4 and it will open new page. This will shows images, comments posted with date & time.
-![screenshot image](screenshot2.png)
-![screenshot image](screenshot3.png)
-![screenshot image](screenshot4.png)
+![screenshot image](screenshot/screenshot2.PNG)
+![screenshot image](screenshot/screenshot3.PNG)
+![screenshot image](screenshot/screenshot4.PNG)
 
 ##### Demonstrating Application deployed successfully on Docker
 Docker is used to create image of the container of the application. It helps in reducing the processing power and the efforts to install dependencies seperately for each application. The docker image can be pulled by anyone and deploy it in no time and this help is easy deployment of application on AWS.
@@ -48,104 +48,104 @@ To create the docker image we need to add Dockerfile and a docker-compose.yml fi
 After that we create the docker image which is used for deploying on AWS EC2 instance.
 ######## Creating Docker file in application
 1. Add the docker file in the Ruby Mine IDE project. This contains the ruby version alongs with other dependencies with the installation instruction for creating docker image.
-![screenshot image](screenshot5.png)
+![screenshot image](screenshot/screenshot5.PNG)
 2. Add docker-compose.yml file in the project. This contains version and rails server port information.
-![screenshot image](screenshot6.png)
+![screenshot image](screenshot/screenshot6.PNG)
 ######## Creating Docker Hub repository
 1. After logging in with docker hub account, click on repository and enter the repository name and the description for the repository.
-![screenshot image](screenshot7.png)
+![screenshot image](screenshot/screenshot7.PNG)
 2. After creating the repository we will be able to push the docker image onto it and it will show the command for the same.
-![screenshot image](screenshot8.png)
+![screenshot image](screenshot/screenshot8.PNG)
 ######## Building Docker Image in Ruby Mine IDE
 1. Go to the application folder directory using the terminal where the dockerfile is present and run the command
   docker build -t amhatre2/group5:project_r_aws_web .
- ![screenshot image](screenshot9.png)
+ ![screenshot image](screenshot/screenshot9.PNG)
   this has the name of the repository as well as a tag as flag 
 2. After creating the docker image run it on the local system using the command
   docker run amhatre2/group5:project_r_aws_web
-![screenshot image](screenshot10.png)
+![screenshot image](screenshot/screenshot10.PNG)
 3. After confirming that the docker is running we can push it to our repository using command after loging in to docker hub 
   docker push amhatre2/group5:project_r_aws_web
-![screenshot image](screenshot11.png)
+![screenshot image](screenshot/screenshot11.PNG)
 4. We build docker-commpose file
 docker-compose build
-![screenshot image](screenshot12.png)
+![screenshot image](screenshot/screenshot12.PNG)
 5. After creating we run the docker compose file and create and migrate database
 docker-compose run web rails db:create db:migrate
-![screenshot image](screenshot13.png)
+![screenshot image](screenshot/screenshot13.PNG)
 6. After that use the following command to aggregate the output.
 docker-compose up
-![screenshot image](screenshot14.png)
+![screenshot image]screenshot/(screenshot14.PNG)
 Application running on local host on docker
-![screenshot image](screenshot15.png)
-![screenshot image](screenshot16.png)
-![screenshot image](screenshot17.png)
+![screenshot image](screenshot/screenshot15.PNG)
+![screenshot image](screenshot/screenshot16.PNG)
+![screenshot image](screenshot/screenshot17.PNG)
 
 ### Amazon Web Services EC2 Compute
 We'll start creating an instance in AWS
 
 We have selected the first option
-![screenshot image](Picture1.png)
+![screenshot image](screenshot/Picture1.png)
 Then We have chosen t2 micro.
-![screenshot image](Picture2.png)
+![screenshot image](screenshot/Picture2.png)
 We have selected default storage, configurations, and tags
 We have configured the security group as follows
 1. Add rule where 
 2. Type is Custom TCP rule
 3. Port is 3000
 4. Source is anywhere
-![screenshot image](Picture3.png)
+![screenshot image](screenshot/Picture3.png)
 Now we will setup a new key pair to access our server and store the private key somewhere safely on our local computer.
-![screenshot image](Picture4.png)
+![screenshot image](screenshot/Picture4.png)
 Now we will allocate on elastic IP 
 And associate it to the server
-![screenshot image](Picture5.png)
+![screenshot image](screenshot/Picture5.png)
 The Elastic IP associated to the server 
-![screenshot image](Picture6.png)
+![screenshot image](screenshot/Picture6.png)
 ### Create an S3 bucket on Amazon Web Services
 1. Search for S3 bucket
 2. Go to Create
 3. And enter the bucket’s name
-![screenshot image](Picture7.png)
+![screenshot image](screenshot/Picture7.png)
 4. Uncheck the block all public access so that you could access your bucket from public IP
-![screenshot image](Picture8.png)
+![screenshot image](screenshot/Picture8.png)
 5. And click submit
 Your bucket is created successfully
-![screenshot image](Picture9.png)
+![screenshot image](screenshot/Picture9.png)
 6. Now upload photos to the bucket through add files option
-![screenshot image](Picture10.png)
-![screenshot image](Picture11.png)
+![screenshot image](screenshot/Picture10.png)
+![screenshot image](screenshot/Picture11.png)
 7. Now set up permissions for the photos uploaded in the bucket
 Go to the permissions tab -> Click edit
-![screenshot image](Picture12.png)
+![screenshot image](screenshot/Picture12.png)
 8. Now setup the permissions as follows
 The type of policy will be S3 bucket policy
 Principal will be *
 Action will be Get Object and Put Object.
-![screenshot image](Picture13.png)
+![screenshot image](screenshot/Picture13.png)
 9. Copy and paste the newly generated policy to the edit bucket policy tab
 And hit save changes.
-![screenshot image](Picture14.png)
+![screenshot image](screenshot/Picture14.png)
 10. After that, we will connect putty and run the commands to deploy docker on putty
 
 Sudo yum update -y
-![screenshot image](Picture15.png)
+![screenshot image](screenshot/Picture15.png)
 
 11. Then run 
 sudo yum install docker -y
-![screenshot image](Picture16.png)
+![screenshot image](screenshot/Picture16.PNG)
 
 12. Then run 
 sudo service docker start
-![screenshot image](Picture17.png)
+![screenshot image](screenshot/Picture17.PNG)
 
 13. Then run 
 sudo docker run -it -p 3000:3000 amhatre2/group5:project_r_aws_web
-![screenshot image](Picture18.png)
+![screenshot image](screenshot/Picture18.PNG)
 ######## Accessing the application deployed on Amazon AWS using public ip
-![screenshot image](Picture19.png)
-![screenshot image](Picture20.png)
-![screenshot image](Picture21.png)
+![screenshot image](screenshot/Picture19.PNG)
+![screenshot image](screenshot/Picture20.PNG)
+![screenshot image](screenshot/Picture21.PNG)
 
 ### SECTION 3) This application is working properly end to end. No open issue is present.
 
