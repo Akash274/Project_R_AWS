@@ -12,7 +12,7 @@
     <% @photos.each do |photo| %>
 
 <!--            <p><%#=image_tag(photo.file_name) %></p>-->
-      <p><%=image_tag("https://group5project.s3.amazonaws.com/"+photo.file_name) %></p>
+      <p><%=image_tag("https://projectawsrailsgroup5.s3.amazonaws.com/"+photo.file_name) %></p>
 
       <% @comments.where("photo_id=?" ,photo.photo_id).each do |comment| %>
 
