@@ -16,7 +16,6 @@
 
       <% @comments.where("photo_id=?" ,photo.photo_id).each do |comment| %>
 
-
         <li> <b>Comment - </b> <%= comment.comment_text %></li>
         <li> <b>Posted by - </b> <%= link_to display_name(comment.user_id), user_photos_path(comment.user_id) %></li>
 
