@@ -11,7 +11,7 @@ The EC2 instance has an image copy saved so that when the EC2 instance is under 
 
 Youtube: https://youtu.be/sZrrzpZJA9U
 
-Application Link: http://18.213.207.246:3000/
+Application Link: http://52.205.126.107:3000/
 
 Github: https://github.com/Akash274/Project_R_AWS/
 
